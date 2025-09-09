@@ -37,6 +37,7 @@ class Device(BaseModel):
     name = models.CharField(max_length=255)
     max_value_threshold = models.FloatField()
     min_value_threshold = models.FloatField()
+    organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
 
