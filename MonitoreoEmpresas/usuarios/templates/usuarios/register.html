@@ -1,0 +1,39 @@
+{% extends 'usuarios/base_user.html' %}
+
+{% block title %}Registro de Empresa{% endblock %}
+
+{% block content %}
+<div class="card auth-card">
+    <div class="card-body">
+        <h3 class="card-title text-center mb-4">Registrar Nueva Empresa</h3>
+
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="organization_name" class="form-label">Nombre de la Empresa</label>
+                <input type="text" class="form-control" id="organization_name" name="organization_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Tu Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Registrarse</button>
+            </div>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{% url 'login' %}">¿Ya tienes una cuenta? Inicia Sesión</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

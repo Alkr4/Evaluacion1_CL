@@ -1,0 +1,40 @@
+{% extends 'dispositivos/base.html' %}
+
+{% block title %}Listado de Dispositivos{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Listado de Dispositivos</h1>
+
+<form method="get" class="mb-4">
+    <div class="input-group">
+        <select class="form-select" name="categoria">
+            <option value="">Todas las categorías</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <button class="btn btn-primary" type="submit">Aplicar Filtro</button>
+    </div>
+</form>
+
+<div class="row">
+    {% for device in devices %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ device.name }}</h5>
+                <p class="card-text">
+                    <strong>Categoría:</strong> {{ device.category.name|default:"N/A" }} <br>
+                    <strong>Zona:</strong> {{ device.zone.name|default:"N/A" }}
+                </p>
+                <a href="{% url 'device_detail' device.id %}" class="btn btn-secondary">Ver Detalle</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col">
+        <div class="alert alert-info">No hay dispositivos para mostrar.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

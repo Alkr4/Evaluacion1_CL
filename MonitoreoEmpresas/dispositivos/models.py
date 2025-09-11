@@ -50,7 +50,7 @@ class Measurement(BaseModel):
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.value
+        return f'medición: {self.value} para el dispositivo: {self.device.name}'
     
 class Alert(BaseModel):
     severity_choices = [

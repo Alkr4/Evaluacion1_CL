@@ -1,0 +1,15 @@
+{% extends 'usuarios/base_user.html' %}
+
+{% block title %}Registro Exitoso{% endblock %}
+
+{% block content %}
+<div class="card auth-card text-center">
+    <div class="card-body">
+        <h3 class="card-title mb-4">¡Registro Completado!</h3>
+        <p>{{ message }}</p>
+        <div class="d-grid mt-4">
+            <a href="{% url 'login' %}" class="btn btn-primary">Ir a Iniciar Sesión</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

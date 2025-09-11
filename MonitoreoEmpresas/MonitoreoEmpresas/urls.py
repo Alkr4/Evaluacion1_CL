@@ -16,7 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from dispositivos.views import dashboard, device_list, device_detail
+from usuarios.views import login, register, logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', login, name='login'),
+    path('register/', register, name='register'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('devices/', device_list, name='device_list'),
+    path('devices/<int:device_id>/', device_detail, name='device_detail'),
+    path('logout/', logout, name='logout'),
 ]
