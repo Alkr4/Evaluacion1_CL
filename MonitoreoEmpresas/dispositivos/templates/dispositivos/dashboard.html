@@ -7,8 +7,8 @@
 
 <div class="row">
     <div class="col-md-6 col-lg-4">
-        <div class="card">
-            <div class="card-header">Dispositivos por Categoría</div>
+        <div class="card shadow-sm">
+            <div class="card-header fw-bold">Dispositivos por Categoría</div>
             <ul class="list-group list-group-flush">
                 {% for item in devices_by_category %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -16,15 +16,15 @@
                         <span class="badge bg-primary rounded-pill">{{ item.count }}</span>
                     </li>
                 {% empty %}
-                    <li class="list-group-item">No hay datos disponibles.</li>
+                    <li class="list-group-item">No hay datos.</li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 
     <div class="col-md-6 col-lg-4">
-        <div class="card">
-            <div class="card-header">Dispositivos por Zona</div>
+        <div class="card shadow-sm">
+            <div class="card-header fw-bold">Dispositivos por Zona</div>
             <ul class="list-group list-group-flush">
                 {% for item in devices_by_zone %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -32,17 +32,44 @@
                         <span class="badge bg-primary rounded-pill">{{ item.count }}</span>
                     </li>
                 {% empty %}
-                    <li class="list-group-item">No hay datos disponibles.</li>
+                    <li class="list-group-item">No hay datos.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    <div class="col-md-12 col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-header fw-bold d-flex justify-content-between align-items-center">
+                Alertas de la Semana
+                <a href="{% url 'alert_list' %}" class="btn btn-sm btn-outline-secondary">Ver Todas</a>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for alert in alerts_by_severity %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {% if alert.severity == 'Alta' %}
+                            <span class="fw-bold text-danger">{{ alert.severity }}</span>
+                            <span class="badge bg-danger rounded-pill">{{ alert.count }}</span>
+                        {% elif alert.severity == 'Media' %}
+                            <span class="fw-bold text-warning">{{ alert.severity }}</span>
+                            <span class="badge bg-warning rounded-pill text-dark">{{ alert.count }}</span>
+                        {% else %}
+                            <span class="fw-bold text-info">{{ alert.severity }}</span>
+                            <span class="badge bg-info rounded-pill text-dark">{{ alert.count }}</span>
+                        {% endif %}
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No hay alertas recientes.</li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
+<div class="card mt-3 shadow-sm">
+    <div class="card-header fw-bold d-flex justify-content-between align-items-center">
         Últimas 10 Mediciones
-        <a href="#" class="btn btn-sm btn-outline-secondary">Ver Todas</a>
+        <a href="{% url 'measurement_list' %}" class="btn btn-sm btn-outline-secondary">Ver Historial</a>
     </div>
     <div class="table-responsive">
         <table class="table table-striped table-hover mb-0">
@@ -62,7 +89,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="3" class="text-center">No hay mediciones recientes.</td>
+                    <td colspan="3" class="text-center text-muted">No hay mediciones recientes.</td>
                 </tr>
                 {% endfor %}
             </tbody>
