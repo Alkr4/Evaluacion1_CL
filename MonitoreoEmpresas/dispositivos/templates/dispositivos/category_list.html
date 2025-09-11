@@ -1,0 +1,30 @@
+{% extends 'dispositivos/base.html' %}
+
+{% block title %}Listado de Categorías{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Categorías Registradas</h1>
+
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Nombre de la Categoría</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td>{{ category.name }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="text-center text-muted">No hay categorías registradas.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

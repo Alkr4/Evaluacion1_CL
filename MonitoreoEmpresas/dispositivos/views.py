@@ -28,6 +28,11 @@ def device_list(request):
         return redirect('login')
 
     devices = Device.objects.filter(organization_id=org_id)
+
+    categoria_id = request.GET.get('categoria')
+    if categoria_id:
+        devices = devices.filter(category_id=categoria_id)
+
     categories = Category.objects.filter(organization_id=org_id)
 
     return render(request, 'dispositivos/device_list.html', {'devices': devices, 'categories': categories})
@@ -62,3 +67,20 @@ def measurement_list(request):
 
     return render(request, 'dispositivos/measurement_list.html', {'measurements': measurements})
 
+def zone_list(request):
+    org_id = request.session.get('organization_id')
+    if not org_id:
+        return redirect('login')
+
+    zones = Zone.objects.filter(organization_id=org_id)
+
+    return render(request, 'dispositivos/zone_list.html', {'zones': zones})
+
+def category_list(request):
+    org_id = request.session.get('organization_id')
+    if not org_id:
+        return redirect('login')
+
+    categories = Category.objects.filter(organization_id=org_id)
+
+    return render(request, 'dispositivos/category_list.html', {'categories': categories})

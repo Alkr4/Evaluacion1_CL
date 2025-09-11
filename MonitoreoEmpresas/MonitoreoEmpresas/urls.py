@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from dispositivos.views import dashboard, device_list, device_detail, alert_list, measurement_list
+from dispositivos.views import dashboard, device_list, device_detail, alert_list, measurement_list, zone_list, category_list
 from usuarios.views import login, register, logout, password_reset, password_reset_confirmed
 
 urlpatterns = [
@@ -31,4 +31,6 @@ urlpatterns = [
     path('password_reset_confirmed/', password_reset_confirmed, name='password_reset_confirmed'),
     path('alerts/', alert_list, name='alert_list'),
     path('measurements/', measurement_list, name='measurement_list'),
+    path('zones/', zone_list, name='zone_list'),
+    path('categories/', category_list, name='category_list'),
 ]
