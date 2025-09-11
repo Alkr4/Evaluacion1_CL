@@ -1,0 +1,70 @@
+{% extends 'dispositivos/base.html' %}
+
+{% block title %}Detalle de {{ device.name }}{% endblock %}
+
+{% block content %}
+<a href="{% url 'device_list' %}" class="btn btn-outline-secondary mb-3">&larr; Volver al listado</a>
+<div class="card mb-4">
+    <div class="card-header">
+        <h1 class="h3 mb-0">Detalle: {{ device.name }}</h1>
+    </div>
+    <div class="card-body">
+        <p><strong>Categoría:</strong> {{ device.category.name|default:"N/A" }}</p>
+        <p><strong>Zona:</strong> {{ device.zone.name|default:"N/A" }}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">Mediciones</div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Fecha/Hora</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for measurement in measurements %}
+                        <tr>
+                            <td>{{ measurement.timestamp|date:"Y-m-d H:i" }}</td>
+                            <td>{{ measurement.value }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="2" class="text-center">No hay mediciones.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">Alertas</div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Fecha/Hora</th>
+                            <th>Severidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alert in alerts %}
+                        <tr>
+                            <td>{{ alert.timestamp|date:"Y-m-d H:i" }}</td>
+                            <td>{{ alert.severity }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="2" class="text-center">No hay alertas.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'dispositivos/base.html' %}
+
+{% block title %}Dashboard - EcoEnergy{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Dashboard</h1>
+
+<div class="row">
+    <div class="col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-header">Dispositivos por Categoría</div>
+            <ul class="list-group list-group-flush">
+                {% for item in devices_by_category %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item.category__name|default:"Sin Categoría" }}
+                        <span class="badge bg-primary rounded-pill">{{ item.count }}</span>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No hay datos disponibles.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-header">Dispositivos por Zona</div>
+            <ul class="list-group list-group-flush">
+                {% for item in devices_by_zone %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item.zone__name|default:"Sin Zona" }}
+                        <span class="badge bg-primary rounded-pill">{{ item.count }}</span>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No hay datos disponibles.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        Últimas 10 Mediciones
+        <a href="#" class="btn btn-sm btn-outline-secondary">Ver Todas</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Fecha/Hora</th>
+                    <th>Dispositivo</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for measurement in latest_measurements %}
+                <tr>
+                    <td>{{ measurement.timestamp|date:"Y-m-d H:i" }}</td>
+                    <td><a href="{% url 'device_detail' measurement.device.id %}">{{ measurement.device.name }}</a></td>
+                    <td>{{ measurement.value }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">No hay mediciones recientes.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
