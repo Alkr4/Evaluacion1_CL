@@ -24,6 +24,13 @@ def register(request):
 
     return render(request, 'usuarios/register.html')
 
+
+def password_reset(request):
+    return render(request, 'usuarios/password_reset.html')
+
+def password_reset_confirmed(request):
+    return render(request, 'usuarios/password_reset_confirmed.html')
+
 def logout(request):
     request.session.flush()
     return redirect('login')
