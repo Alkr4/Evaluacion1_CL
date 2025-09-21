@@ -1,8 +1,7 @@
 from django.contrib import admin
-from .models import Organization, Category, Zone, Device, Measurement, Alert
-# Register your models here.
+from .models import Category, Zone, Device, Measurement, Alert
 
-admin.site.register(Organization)
+# Hemos quitado Organization de aquí porque ya está registrado en su propia app
 admin.site.register(Category)
 admin.site.register(Zone)
 admin.site.register(Device)

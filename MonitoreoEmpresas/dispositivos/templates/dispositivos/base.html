@@ -29,7 +29,10 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link nav-link" style="padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);">Cerrar Sesión</button>
+                        </form>
                     </li>
                 </ul>
             </div>

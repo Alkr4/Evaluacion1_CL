@@ -1,11 +1,12 @@
 from django.db import models
+# Importamos el modelo correcto desde el app 'organizations'
+from organizations.models import Organization
 
 class BaseModel(models.Model):
     states = [
         ("ACTIVO", "Activo"),
         ("INACTIVO", "Inactivo"),
     ]
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -13,14 +14,11 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
-class Organization(BaseModel):
-    name = models.CharField(max_length=255)
+# El modelo Organization de aquí se elimina porque ahora usamos el de 'organizations.models'
 
-    def __str__(self):
-        return self.name
-    
 class Category(BaseModel):
     name = models.CharField(max_length=255)
+    # Nos aseguramos de que la relación apunte al modelo importado
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -28,6 +26,7 @@ class Category(BaseModel):
     
 class Zone(BaseModel):
     name = models.CharField(max_length=255)
+    # Nos aseguramos de que la relación apunte al modelo importado
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -37,6 +36,7 @@ class Device(BaseModel):
     name = models.CharField(max_length=255)
     max_value_threshold = models.FloatField()
     min_value_threshold = models.FloatField()
+    # Nos aseguramos de que la relación apunte al modelo importado
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     zone = models.ForeignKey(Zone, on_delete=models.CASCADE)
@@ -65,4 +65,3 @@ class Alert(BaseModel):
 
     def __str__(self):
         return self.severity
-    
